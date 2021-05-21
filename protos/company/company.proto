@@ -1,0 +1,36 @@
+syntax="proto3";
+
+option go_package = "github.com/EmanuelFeij/MinderaPractice/protos/company";
+
+
+service company {
+    rpc GetAllUsers (EmptyMessage) returns (stream User);
+    rpc GetUserByName (UserName) returns (stream User);
+    rpc GetUserByID (UserID) returns (stream User);
+    rpc AddUser (User) returns (Error);
+    rpc AddUserSeveralUsers(stream User) returns (Error);
+    rpc DeleteUser (User) returns (Error);
+}
+
+message EmptyMessage {}
+
+
+message UserName {
+    string name = 1;
+}
+
+message UserID {
+    int32 id = 1;
+}
+
+message User {
+    UserName username  = 1;
+    UserID id = 2;
+    string profession = 3; 
+    int32 age = 4;
+}
+
+message Error {
+    bool yes = 1;
+    bool no = 2;
+}
